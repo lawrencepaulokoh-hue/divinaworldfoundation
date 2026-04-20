@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DIVINA WORLD Foundation</title>
+  <style>
+    :root {
+      --bg: #0f0a19;
+      --bg-soft: #171026;
+      --panel: rgba(255,255,255,0.06);
+      --panel-strong: rgba(255,255,255,0.1);
+      --text: #f8f4ff;
+      --muted: #c9bddb;
+      --purple: #6f2cff;
+      --purple-2: #a855f7;
+      --gold: #f5c451;
+      --green: #76d39c;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius: 22px;
+      --max: 1380px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(168,85,247,0.22), transparent 28%),
+        radial-gradient(circle at 85% 10%, rgba(245,196,81,0.14), transparent 18%),
+        radial-gradient(circle at 80% 80%, rgba(111,44,255,0.2), transparent 24%),
+        linear-gradient(180deg, #120b1e 0%, #0b0713 100%);
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      background: rgba(12, 8, 20, 0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--green));
+      padding: 2px;
+      box-shadow: 0 8px 30px rgba(245,196,81,0.25);
+      flex-shrink: 0;
+    }
+
+    .brand-mark-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #3b185d, #221036);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      font-size: 0.9rem;
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .menu details {
+      position: relative;
+    }
+
+    .menu summary,
+    .menu > a,
+    .donate-btn,
+    .hero-actions a,
+    .impact-card a,
+    .cta-card a {
+      list-style: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: 0.25s ease;
+    }
+
+    .menu summary {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .menu summary:hover,
+    .menu > a:hover {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .menu summary::after {
+      content: "▾";
+      margin-left: 8px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .menu details[open] summary {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0;
+      min-width: 230px;
+      background: rgba(20, 12, 31, 0.96);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .dropdown a:hover {
+      color: white;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .menu > a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .donate-btn {
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: #ffa500;
+      color: #251227;
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(255,165,0,0.28);
+    }
+
+    .donate-btn:hover,
+    .hero-actions .primary:hover,
+    .cta-card .primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+    }
+
+    .hero {
+      padding: 0 0 34px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 0.88fr 1.12fr;
+      gap: 0;
+      align-items: stretch;
+      min-height: 840px;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 110px 36px 34px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 20px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      font-size: clamp(2.7rem, 5vw, 5.4rem);
+      line-height: 0.94;
+      letter-spacing: -0.05em;
+      margin-bottom: 18px;
+      max-width: 11ch;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #dfc2ff 40%, #f5c451 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      font-size: 1.12rem;
+      color: var(--muted);
+      max-width: 62ch;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+
+    .hero-actions a {
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .hero-actions .primary,
+    .cta-card .primary {
+      background: linear-gradient(135deg, var(--purple), var(--purple-2));
+      color: white;
+      box-shadow: 0 18px 40px rgba(111,44,255,0.28);
+    }
+
+    .hero-actions .secondary,
+    .cta-card .secondary {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: white;
+    }
+
+    .stats {
+      max-width: 820px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 22px 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.35rem;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 840px;
+      border-radius: 0 0 0 40px;
+      overflow: hidden;
+      margin-left: -130px;
+      background:
+        linear-gradient(90deg, rgba(20,10,34,0.82) 0%, rgba(20,10,34,0.5) 24%, rgba(20,10,34,0.12) 46%, rgba(20,10,34,0.08) 100%),
+        url('people.png') center center/cover no-repeat;
+      border-left: 1px solid rgba(255,255,255,0.05);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(168,85,247,0.16), transparent 20%),
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0));
+      pointer-events: none;
+    }
+
+    
+
+    section {
+      padding: 34px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .mission-grid,
+    .program-grid,
+    .pillars,
+    .impact-grid,
+    .footer-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .mission-grid {
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: stretch;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .mission-copy p,
+    .card p {
+      color: var(--muted);
+    }
+
+    .quote-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        linear-gradient(180deg, rgba(111,44,255,0.14), rgba(245,196,81,0.08)),
+        rgba(255,255,255,0.04);
+    }
+
+    .quote-card blockquote {
+      margin: 0;
+      font-size: 1.4rem;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+
+    .quote-card cite {
+      color: var(--muted);
+      font-style: normal;
+      margin-top: 18px;
+      display: block;
+    }
+
+    .pillars {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pillar h3,
+    .program-card h3,
+    .impact-card h3,
+    .footer-brand h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .program-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .program-card,
+    .impact-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .program-card::before,
+    .impact-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -20% -45% auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,85,247,0.24), transparent 60%);
+      pointer-events: none;
+    }
+
+    .program-tag {
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(255,255,255,0.08);
+      color: #e6d6ff;
+      margin-bottom: 16px;
+    }
+
+    .impact-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .impact-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      color: white;
+      font-weight: 700;
+    }
+
+    .cta-card {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: center;
+      background:
+        radial-gradient(circle at left top, rgba(245,196,81,0.12), transparent 26%),
+        radial-gradient(circle at right bottom, rgba(111,44,255,0.22), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      padding: 28px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-card p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      padding: 44px 0 56px;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1.2fr 0.8fr 0.8fr 1fr;
+      align-items: start;
+    }
+
+    .footer-brand p,
+    .footer-links a,
+    .footer-note {
+      color: var(--muted);
+    }
+
+    .footer-links h4,
+    .footer-brand h3 {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      display: block;
+      padding: 6px 0;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 28px;
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .mission-grid,
+      .cta-card,
+      .footer-grid,
+      .program-grid,
+      .impact-grid,
+      .pillars {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-grid {
+        min-height: 720px;
+      }
+
+      .hero-copy {
+        padding: 90px 24px 24px 0;
+      }
+
+      .hero-visual {
+        min-height: 720px;
+        margin-left: -80px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .menu {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .dropdown {
+        position: static;
+        margin-top: 8px;
+      }
+
+      .hero {
+        padding-top: 0;
+      }
+
+      .hero-grid,
+      .mission-grid,
+      .cta-card,
+      .program-grid,
+      .impact-grid,
+      .pillars,
+      .footer-grid,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid {
+        min-height: auto;
+      }
+
+      .hero-copy {
+        padding: 42px 0 24px;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      h1 {
+        max-width: 12ch;
+      }
+
+      .cta-actions {
+        justify-content: flex-start;
+      }
+
+      .hero-visual {
+        min-height: 460px;
+        margin-left: 0;
+        border-radius: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="DIVINA WORLD Foundation home">
+        <div class="brand-mark">
+          <div class="brand-mark-inner">DWF</div>
+        </div>
+        <div class="brand-text">
+          <strong>DIVINA WORLD Foundation</strong>
+          <span>Preserving culture for future generations</span>
+        </div>
+      </a>
+
+      <nav class="menu" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+
+        <details>
+          <summary>About Us</summary>
+          <div class="dropdown">
+            <a href="#who-we-are">Who We Are</a>
+            <a href="#leadership">Our Leadership</a>
+            <a href="#sponsors">Our Sponsors</a>
+          </div>
+        </details>
+
+        <details>
+          <summary>Programs</summary>
+          <div class="dropdown">
+            <a href="#programs">Talent Search</a>
+            <a href="#programs">Summit</a>
+            <a href="#programs">Conectado-verse</a>
+            <a href="#programs">Volunteer</a>
+          </div>
+        </details>
+
+        <a href="#contact">Contact Us</a>
+        <a class="donate-btn" href="#donate">Donate</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Global heritage preservation through music, story, and immersive technology</div>
+          <h1><span class="gradient-text">Save living cultures</span> before they disappear.</h1>
+          <p class="lead">
+            DIVINA WORLD Foundation helps Island, Tribal, Indigenous, Latin, Hispanic, Coastal, and other communities preserve culture, language, stories, and history in their own voice for future generations.
+          </p>
+          <div class="hero-actions">
+            <a class="primary" href="#donate">Support the Mission</a>
+            <a class="secondary" href="#programs">Explore Programs</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <strong>501(c)(3)</strong>
+              <span>Non-profit rooted in preservation, education, and community impact</span>
+            </div>
+            <div class="stat">
+              <strong>Music + Metaverse</strong>
+              <span>A modern way to protect stories, traditions, and ancestral memory</span>
+            </div>
+            <div class="stat">
+              <strong>Youth Focused</strong>
+              <span>Culture, STEAM, wellness, arts, and opportunity for the next generation</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="who-we-are">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Built to protect memory, identity, and legacy</h2>
+            <p>
+              DWF exists to help communities document their origins, traditions, language, music, and ways of life with dignity, beauty, and ownership.
+            </p>
+          </div>
+        </div>
+
+        <div class="mission-grid">
+          <div class="card mission-copy">
+            <h3>Who We Are</h3>
+            <p>
+              DIVINA WORLD Foundation was created to preserve cultural heritage through inter-generational storytelling, world music, educational programming, and immersive digital experiences.
+            </p>
+            <p>
+              By partnering with artists, musicians, elders, youth, technologists, and community leaders, DWF gives communities a way to tell their own story in their own voice and language.
+            </p>
+            <p>
+              This mission brings together culture, representation, entrepreneurship, STEAM education, wellness, sports, food, arts, and the ethical use of VR, tech, and AI.
+            </p>
+          </div>
+
+          <div class="card quote-card">
+            <div>
+              <div class="eyebrow">Our belief</div>
+              <blockquote>
+                “By remembering our ancestors, we honor ourselves. By celebrating our roots, we learn who we are.”
+              </blockquote>
+            </div>
+            <cite>DIVINA WORLD Foundation</cite>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="programs">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Programs that turn preservation into action</h2>
+            <p>
+              A modern cultural ecosystem designed to preserve history, uplift artists, engage youth, and create a home for living heritage.
+            </p>
+          </div>
+        </div>
+
+        <div class="program-grid">
+          <article class="card program-card">
+            <span class="program-tag">Program 01</span>
+            <h3>Talent Search</h3>
+            <p>Discovering and celebrating musicians, artists, and culture bearers whose work carries heritage forward.</p>
+          </article>
+
+          <article class="card program-card">
+            <span class="program-tag">Program 02</span>
+            <h3>Summit</h3>
+            <p>Gathering leaders, creatives, educators, and communities around preservation, innovation, and shared solutions.</p>
+          </article>
+
+          <article class="card program-card">
+            <span class="program-tag">Program 03</span>
+            <h3>Conectado-verse</h3>
+            <p>An immersive metaverse experience where stories, music, language, and history can be preserved for generations.</p>
+          </article>
+
+          <article class="card program-card">
+            <span class="program-tag">Program 04</span>
+            <h3>Volunteer</h3>
+            <p>Inviting advocates, activators, and solutionaries to contribute skills, time, and heart to the mission.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>What the foundation stands on</h2>
+            <p>
+              These are the core values shaping every initiative, partnership, and community experience.
+            </p>
+          </div>
+        </div>
+
+        <div class="pillars">
+          <article class="card pillar">
+            <h3>Culture & Representation</h3>
+            <p>Protecting identity through story, language, art, food, music, and the wisdom of elders and community memory.</p>
+          </article>
+
+          <article class="card pillar">
+            <h3>Youth & Education</h3>
+            <p>Using STEAM, mentorship, music, and edutainment to help younger generations connect with who they are.</p>
+          </article>
+
+          <article class="card pillar">
+            <h3>Ethical Innovation</h3>
+            <p>Using VR, AI, and immersive technology in a way that honors communities instead of replacing them.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="leadership">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>How people can help</h2>
+            <p>
+              The website should make it easy for supporters to understand the mission and take the next step right away.
+            </p>
+          </div>
+        </div>
+
+        <div class="impact-grid">
+          <article class="card impact-card">
+            <h3>Donate</h3>
+            <p>Fund preservation work, programming, digital archives, and the creation of immersive cultural experiences.</p>
+            <a href="#donate">Give now →</a>
+          </article>
+
+          <article class="card impact-card" id="sponsors">
+            <h3>Partner</h3>
+            <p>Support the movement as a sponsor, strategic partner, artist collaborator, or community organization.</p>
+            <a href="#contact">Become a partner →</a>
+          </article>
+
+          <article class="card impact-card">
+            <h3>Volunteer</h3>
+            <p>Contribute your time, creativity, technical skills, or advocacy to help build something meaningful.</p>
+            <a href="#contact">Join the mission →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="donate">
+      <div class="container">
+        <div class="cta-card">
+          <div>
+            <div class="eyebrow">Support the future of cultural preservation</div>
+            <h2>Help communities keep their stories alive.</h2>
+            <p>
+              A modern, trustworthy donation experience should feel clear, inspiring, and deeply connected to the mission.
+            </p>
+          </div>
+          <div class="cta-actions">
+            <a class="primary" href="#">Donate Securely</a>
+            <a class="secondary" href="#contact">Speak With Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>DIVINA WORLD Foundation</h3>
+          <p>
+            Preserving culture, protecting memory, and building a digital future where communities can tell their own story.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <h4>Navigate</h4>
+          <a href="#home">Home</a>
+          <a href="#who-we-are">About Us</a>
+          <a href="#programs">Programs</a>
+          <a href="#contact">Contact Us</a>
+        </div>
+
+        <div class="footer-links">
+          <h4>Programs</h4>
+          <a href="#programs">Talent Search</a>
+          <a href="#programs">Summit</a>
+          <a href="#programs">Conectado-verse</a>
+          <a href="#programs">Volunteer</a>
+        </div>
+
+        <div class="footer-links">
+          <h4>Get Involved</h4>
+          <a href="#donate">Donate</a>
+          <a href="#sponsors">Sponsors</a>
+          <a href="#contact">Contact</a>
+          <a href="#">Press &amp; Media</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-note">© 2026 DIVINA WORLD Foundation. All rights reserved.</div>
+        <div class="footer-note">Designed to feel modern, trustworthy, and mission-first.</div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const navDetails = document.querySelectorAll('.menu details');
+    const navLinks = document.querySelectorAll('.menu a, .dropdown a');
+
+    navDetails.forEach((detail) => {
+      const summary = detail.querySelector('summary');
+
+      summary.addEventListener('click', () => {
+        navDetails.forEach((otherDetail) => {
+          if (otherDetail !== detail) {
+            otherDetail.removeAttribute('open');
+          }
+        });
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      const clickedInsideMenu = event.target.closest('.menu details');
+
+      if (!clickedInsideMenu) {
+        navDetails.forEach((detail) => detail.removeAttribute('open'));
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        navDetails.forEach((detail) => detail.removeAttribute('open'));
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        navDetails.forEach((detail) => detail.removeAttribute('open'));
+      }
+    });
+  </script>
+</body>
+</html>
