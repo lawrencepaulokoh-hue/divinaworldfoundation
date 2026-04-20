@@ -208,17 +208,40 @@
     }
 
     .hero {
+      position: relative;
       padding: 0 0 34px;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(10, 6, 18, 0.96) 0%, rgba(18, 10, 30, 0.93) 18%, rgba(29, 15, 47, 0.80) 34%, rgba(24, 12, 40, 0.48) 48%, rgba(16, 9, 28, 0.24) 58%, rgba(12, 7, 20, 0.78) 100%),
+        url('People.png') center center / cover no-repeat;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 28%, rgba(111,44,255,0.18), transparent 22%),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01) 30%, rgba(0,0,0,0.16) 100%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(11,7,19,0.88) 0%, rgba(11,7,19,0.55) 22%, rgba(11,7,19,0.18) 40%, rgba(11,7,19,0) 58%);
+      pointer-events: none;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
+      grid-template-columns: minmax(0, 760px) 1fr;
       gap: 0;
       align-items: stretch;
       min-height: 840px;
       position: relative;
-      isolation: isolate;
+      z-index: 2;
     }
 
     .hero-copy {
@@ -228,6 +251,7 @@
       flex-direction: column;
       justify-content: center;
       padding: 110px 28px 34px 0;
+      max-width: 760px;
     }
 
     .eyebrow {
@@ -321,39 +345,7 @@
     }
 
     .hero-visual {
-      position: relative;
       min-height: 840px;
-      border-radius: 0 0 0 40px;
-      overflow: hidden;
-      margin-left: -170px;
-      background:
-        linear-gradient(90deg, rgba(11,7,19,0.96) 0%, rgba(18,11,30,0.88) 16%, rgba(27,15,43,0.72) 28%, rgba(33,18,52,0.46) 40%, rgba(24,14,38,0.18) 54%, rgba(20,10,34,0.08) 100%),
-        url('People.png') center center/cover no-repeat;
-      border-left: 1px solid rgba(255,255,255,0.05);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-visual::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 18% 38%, rgba(111,44,255,0.22), transparent 24%),
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01) 32%, rgba(0,0,0,0.12) 100%);
-      pointer-events: none;
-    }
-
-    .hero-visual::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 38%;
-      height: 100%;
-      background: linear-gradient(90deg, rgba(11,7,19,0.98) 0%, rgba(18,11,30,0.82) 35%, rgba(18,11,30,0.35) 72%, rgba(18,11,30,0) 100%);
-      filter: blur(18px);
-      transform: translateX(-18%);
-      pointer-events: none;
     }
 
     
@@ -569,19 +561,16 @@
 
       .hero-grid {
         min-height: 720px;
+        grid-template-columns: minmax(0, 620px) 1fr;
       }
 
       .hero-copy {
         padding: 90px 20px 24px 0;
+        max-width: 620px;
       }
 
       .hero-visual {
         min-height: 720px;
-        margin-left: -110px;
-      }
-
-      .hero-visual::after {
-        width: 46%;
       }
     }
 
@@ -603,6 +592,13 @@
 
       .hero {
         padding-top: 0;
+        background:
+          linear-gradient(180deg, rgba(10, 6, 18, 0.94) 0%, rgba(18, 10, 30, 0.82) 26%, rgba(18, 10, 30, 0.46) 48%, rgba(10, 6, 18, 0.9) 100%),
+          url('People.png') center center / cover no-repeat;
+      }
+
+      .hero::after {
+        background: linear-gradient(180deg, rgba(11,7,19,0.58) 0%, rgba(11,7,19,0.2) 30%, rgba(11,7,19,0.08) 45%, rgba(11,7,19,0.5) 100%);
       }
 
       .hero-grid,
@@ -622,6 +618,7 @@
 
       .hero-copy {
         padding: 42px 0 24px;
+        max-width: none;
       }
 
       .section-head {
@@ -638,15 +635,7 @@
       }
 
       .hero-visual {
-        min-height: 460px;
-        margin-left: 0;
-        border-radius: 26px;
-      }
-
-      .hero-visual::after {
-        width: 100%;
-        transform: none;
-        filter: blur(10px);
+        display: none;
       }
     }
   </style>
