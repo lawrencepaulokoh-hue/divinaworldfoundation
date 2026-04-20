@@ -176,25 +176,54 @@ p {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 18px;
-    margin-top: 10px;
+    margin-top: 14px;
 }
 
 .logo-card {
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 18px;
-    min-height: 110px;
+    min-height: 140px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 18px;
+    padding: 10px;
+    overflow: hidden;
 }
 
 .logo-card img {
-    max-width: 100%;
-    max-height: 52px;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 92%;
+    max-height: 105px;
     object-fit: contain;
-    filter: brightness(1.05);
+}
+
+/* Per-logo sizing tweaks */
+.disco-logo {
+    max-height: 72px !important;
+    max-width: 78% !important;
+}
+
+.fender-logo {
+    max-height: 88px !important;
+    max-width: 82% !important;
+}
+
+.hendrix-logo {
+    max-height: 92px !important;
+    max-width: 84% !important;
+}
+
+.marshall-logo {
+    max-height: 82px !important;
+    max-width: 84% !important;
+}
+
+.wellness-logo {
+    max-height: 96px !important;
+    max-width: 88% !important;
 }
 
 .authority-note {
@@ -380,19 +409,23 @@ footer {
 
         <div class="logo-grid">
             <div class="logo-card">
-                <img src="discologo.jpg" alt="DISCO logo">
+                <img src="discologo.jpg" alt="DISCO logo" class="disco-logo">
             </div>
+
             <div class="logo-card">
-                <img src="fenderlogo.jpg" alt="Fender logo">
+                <img src="fenderlogo.jpg" alt="Fender logo" class="fender-logo">
             </div>
+
             <div class="logo-card">
-                <img src="hendrixlogo.jpg" alt="Experience Hendrix logo">
+                <img src="hendrixlogo.jpg" alt="Experience Hendrix logo" class="hendrix-logo">
             </div>
+
             <div class="logo-card">
-                <img src="marshallamplogo.jpg" alt="Marshall logo">
+                <img src="marshallamplogo.jpg" alt="Marshall logo" class="marshall-logo">
             </div>
+
             <div class="logo-card">
-                <img src="wellness360logo.JPG" alt="Wellness 360 logo">
+                <img src="wellness360logo.JPG" alt="Wellness 360 logo" class="wellness-logo">
             </div>
         </div>
 
