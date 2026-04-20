@@ -213,19 +213,21 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 0.88fr 1.12fr;
+      grid-template-columns: 0.9fr 1.1fr;
       gap: 0;
       align-items: stretch;
       min-height: 840px;
+      position: relative;
+      isolation: isolate;
     }
 
     .hero-copy {
       position: relative;
-      z-index: 2;
+      z-index: 3;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 110px 36px 34px 0;
+      padding: 110px 28px 34px 0;
     }
 
     .eyebrow {
@@ -323,9 +325,9 @@
       min-height: 840px;
       border-radius: 0 0 0 40px;
       overflow: hidden;
-      margin-left: -130px;
+      margin-left: -170px;
       background:
-        linear-gradient(90deg, rgba(20,10,34,0.82) 0%, rgba(20,10,34,0.5) 24%, rgba(20,10,34,0.12) 46%, rgba(20,10,34,0.08) 100%),
+        linear-gradient(90deg, rgba(11,7,19,0.96) 0%, rgba(18,11,30,0.88) 16%, rgba(27,15,43,0.72) 28%, rgba(33,18,52,0.46) 40%, rgba(24,14,38,0.18) 54%, rgba(20,10,34,0.08) 100%),
         url('People.png') center center/cover no-repeat;
       border-left: 1px solid rgba(255,255,255,0.05);
       box-shadow: var(--shadow);
@@ -336,8 +338,21 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 20% 18%, rgba(168,85,247,0.16), transparent 20%),
-        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0));
+        radial-gradient(circle at 18% 38%, rgba(111,44,255,0.22), transparent 24%),
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01) 32%, rgba(0,0,0,0.12) 100%);
+      pointer-events: none;
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 38%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(11,7,19,0.98) 0%, rgba(18,11,30,0.82) 35%, rgba(18,11,30,0.35) 72%, rgba(18,11,30,0) 100%);
+      filter: blur(18px);
+      transform: translateX(-18%);
       pointer-events: none;
     }
 
@@ -557,12 +572,16 @@
       }
 
       .hero-copy {
-        padding: 90px 24px 24px 0;
+        padding: 90px 20px 24px 0;
       }
 
       .hero-visual {
         min-height: 720px;
-        margin-left: -80px;
+        margin-left: -110px;
+      }
+
+      .hero-visual::after {
+        width: 46%;
       }
     }
 
@@ -622,6 +641,12 @@
         min-height: 460px;
         margin-left: 0;
         border-radius: 26px;
+      }
+
+      .hero-visual::after {
+        width: 100%;
+        transform: none;
+        filter: blur(10px);
       }
     }
   </style>
